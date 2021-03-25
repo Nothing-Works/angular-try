@@ -7,6 +7,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class UserListComponent implements OnInit {
   constructor() {}
+  public newUserName: string = '';
   public users: Array<string> = ['Jack', 'Jon', 'Sam'];
   public usersList: Array<{ name: string; id: number }> = [
     {
@@ -28,4 +29,19 @@ export class UserListComponent implements OnInit {
   ];
   public testUser: string = 'I am a test user';
   ngOnInit(): void {}
+
+  add(): void {
+    let id =
+      Math.max.apply(
+        null,
+        this.usersList.map((u) => u.id)
+      ) + 1;
+
+    this.usersList.push({ name: this.newUserName, id: id });
+
+    this.newUserName = '';
+  }
+  remove(id: number): void {
+    this.usersList = this.usersList.filter((c) => c.id !== id);
+  }
 }

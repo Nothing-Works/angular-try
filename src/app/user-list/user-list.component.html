@@ -5,6 +5,15 @@
   <p>{{ user }}</p>
 </div>
 
+<div style="display: flex">
+  <h4>Add a new user</h4>
+  <input [(ngModel)]="newUserName" type="text" />
+  <button (click)="add()">Add</button>
+</div>
+
 <div *ngFor="let user of usersList">
-  <p>{{ user.name }}</p>
+  <div style="display: flex">
+    <p>{{ user.name }} and the id is {{ user.id }}</p>
+    <button (click)="remove(user.id)">remove</button>
+  </div>
 </div>
