@@ -1,0 +1,17 @@
+.flex {
+  display: flex;
+}
+
+.user-container {
+  border-bottom: 1px solid grey;
+  font-size: 18px;
+  padding: 10px;
+  display: flex;
+  justify-content: space-between;
+}
+
+/* for style the parent element */
+:host {
+  border: 1px solid red;
+  display: block;
+}
