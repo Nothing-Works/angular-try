@@ -1,2 +1,6 @@
 <h1>This is going to be the one.</h1>
-<app-user-list></app-user-list>
+<app-user-list
+  [usersList]="usersList"
+  (removeUserEvent)="remove($event)"
+  (addUserEvent)="add($event)"
+></app-user-list>
