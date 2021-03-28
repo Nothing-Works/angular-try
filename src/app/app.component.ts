@@ -1,6 +1,5 @@
-import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { PartialObserver } from 'rxjs';
+import { UserService } from './services/users.service';
 import { User } from './types/user.interface';
 
 @Component({
@@ -11,29 +10,25 @@ import { User } from './types/user.interface';
 export class AppComponent implements OnInit {
   title = 'angular-try';
   ngOnInit(): void {
-    this.http
-      .get<Array<User>>('http://localhost:3000/users')
-      .subscribe((users) => {
-        this.usersList = users;
-      });
+    this.userService.getUsers().subscribe((users) => {
+      this.usersList = users;
+    });
   }
 
-  constructor(private http: HttpClient) {
+  constructor(private userService: UserService) {
     this.usersList = [];
   }
   public usersList: Array<User>;
 
   remove(id: number): void {
-    this.usersList = this.usersList.filter((c) => c.id !== id);
+    this.userService.removeUser(id).subscribe(() => {
+      this.usersList = this.usersList.filter((c) => c.id !== id);
+    });
   }
 
   add(name: string): void {
-    let id =
-      Math.max.apply(
-        null,
-        this.usersList.map((u) => u.id)
-      ) + 1;
-
-    this.usersList.push({ name, id });
+    this.userService.addUser(name).subscribe((u) => {
+      this.usersList.push(u);
+    });
   }
 }
