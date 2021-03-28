@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Component, OnInit } from '@angular/core';
+import { PartialObserver } from 'rxjs';
 import { User } from './types/user.interface';
 
 @Component({
@@ -6,26 +8,21 @@ import { User } from './types/user.interface';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   title = 'angular-try';
-  public usersList: Array<User> = [
-    {
-      name: 'Andy1',
-      id: 1,
-    },
-    {
-      name: 'Andy2',
-      id: 2,
-    },
-    {
-      name: 'Andy3',
-      id: 3,
-    },
-    {
-      name: 'Andy4',
-      id: 4,
-    },
-  ];
+  ngOnInit(): void {
+    this.http
+      .get<Array<User>>('http://localhost:3000/users')
+      .subscribe((users) => {
+        this.usersList = users;
+      });
+  }
+
+  constructor(private http: HttpClient) {
+    this.usersList = [];
+  }
+  public usersList: Array<User>;
+
   remove(id: number): void {
     this.usersList = this.usersList.filter((c) => c.id !== id);
   }
