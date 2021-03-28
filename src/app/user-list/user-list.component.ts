@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { User } from '../types/user.interface';
 
 @Component({
   selector: 'app-user-list',
@@ -6,9 +7,9 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
   styleUrls: ['./user-list.component.css'],
 })
 export class UserListComponent implements OnInit {
-  @Input() usersList!: Array<{ name: string; id: number }>;
-  @Output() removeUserEvent = new EventEmitter();
-  @Output() addUserEvent = new EventEmitter();
+  @Input() usersList!: Array<User>;
+  @Output() removeUserEvent = new EventEmitter<number>();
+  @Output() addUserEvent = new EventEmitter<string>();
   constructor() {}
   public newUserName: string = '';
   public users: Array<string> = ['Jack', 'Jon', 'Sam'];

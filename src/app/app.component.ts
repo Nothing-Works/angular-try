@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { User } from './types/user.interface';
 
 @Component({
   selector: 'app-root',
@@ -7,7 +8,7 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'angular-try';
-  public usersList: Array<{ name: string; id: number }> = [
+  public usersList: Array<User> = [
     {
       name: 'Andy1',
       id: 1,
